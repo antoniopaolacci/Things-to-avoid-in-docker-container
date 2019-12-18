@@ -32,5 +32,5 @@ Vediamo cosa *non* dovremmo fare per continuare ad sfruttare i vantaggi dei cont
 
 9. *Non eseguire processi come **root** user.* Di default i containers docker eseguono come *root*. L'immagine deve utilizzare l'istruzione *USER* per specificare un utente non root per eseguire i containers.
 
-10. **Non affidarsi ad IP addresses** – Ogni container ha il suo indirizzo IP interno e puo' cambiare se si effettua uno start & stop del container. Se la tua applicazione o servizio ha bisogno di comunicare con un altro container, utilizza  variabili d'ambiente per passare la corretta coppia hostname & port da un container ad un altro.
+10. **Non affidarsi ad IP addresses**. Ogni container ha il suo indirizzo IP interno e puo' cambiare se si effettua uno start & stop del container. Se la tua applicazione o servizio ha bisogno di comunicare con un altro container, utilizza  variabili d'ambiente per passare la corretta coppia hostname & port da un container ad un altro.
 
