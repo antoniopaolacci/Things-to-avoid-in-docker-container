@@ -1,20 +1,22 @@
 # Things-to-avoid-in-docker-container
 *Things to avoid in a docker containers*
 
-Alla fine, bene o male tutti, ci siamo arresi ai containers perché risolvono molti problemi ed hanno molti **vantaggi**:
+Alla fine, bene o male, tutti ci siamo arresi ai containers perché risolvono molti problemi ed hanno molti **vantaggi**:
 
 1. **First**: Containers sono immutabili. Il sistema operativo, le versioni di librerie, configurazioni, cartelle e le applicazioni sono tutte *wrapped* all'interno del container.
 
 2. **Second**: Containers sono leggeri. Invece di centinaia o migliaia di MB, il container alloca solo la memoria per il processo principale.
-3. **Third**: Containers sono veloci. E' possibile avviare un container con la stessa velocità tipica dello start di un tipico processo linux.
 
-Tuttavia, molti utenti trattano i containers come normali virtual machine e dimenticano che i contenitori hanno una caratteristica importante: i contenitori *sono usa e getta*. **Containers are ephemeral**.
+3. **Third**: Containers sono veloci. E' possibile avviare un container con la stessa velocità tipica dello start di un processo linux.
 
-Questa caratteristica costringe l'utente a cambiare la modalità di come dovrebbero gestire i contenitori. Vediamo cosa *non* dovremmo fare per continuare ad sfruttare i vantaggi dei containers:
+Tuttavia, molti utenti trattano i containers come normali virtual machine e dimenticano che i contenitori hanno una caratteristica importante: i contenitori *sono usa e getta*: **Containers are ephemeral**.
 
-1. Non memorizzare dati nei containers. Un container potrà essere stoppato, distrutto, rimpiazzato. Un applicazione versione 1.0 che esegue in un container potrà essere rimpiazzata con la versione 1.1 senza nessun impatto o perdita di dati. Per questa ragione, se hai bisogno di memorizzare dati, fallo in un volume. In tal caso, è necessario prestare attenzione anche se due contenitori scrivono dati sullo stesso volume in quanto potrebbero causare danni. Assicurarsi che le applicazioni siano progettate per scrivere correttamente su un archivio dati condiviso.
+Questa caratteristica costringe l'utente a cambiare la modalità di come dovrebbe gestire i contenitori. 
+Vediamo cosa *non* dovremmo fare per continuare ad sfruttare i vantaggi dei containers:
 
-2. *Non deployare la tua applicazione in due pezzi.* Molte persone considerano i containers come virtual machine, molti di loro pensano di poter effettuare il deploy della loro applicazione in containers già esistenti e running. Questo potrebbe essere accettato durante la fase di sviluppo dove si ha bisogno di effettuare il deploy e il debug continuamente; ma per una CD (continuously delivery) pipeline verso l'ambiente di produzione, la tua applicazione dovrebbe far parte di una singola immagine. Ricorda: *Containers sono immutabili.*
+1. Non memorizzare dati nei containers. Un container potrà essere stoppato, distrutto, rimpiazzato. Un'applicazione versione 1.0 che esegue in un container potrà essere rimpiazzata con la versione 1.1 senza nessun impatto o perdita di dati. Per questa ragione, se hai bisogno di memorizzare dati bisognerà utilizzare un **volume**. In tal caso, è necessario prestare attenzione anche se due contenitori scrivono dati sullo stesso volume in quanto potrebbero causare danni. Assicurarsi che le applicazioni siano progettate per scrivere correttamente su un archivio dati condiviso.
+
+2. *Non deployare la tua applicazione in due pezzi.* Molte persone considerano i containers come virtual machine, molti di loro pensano di poter effettuare il deploy della loro applicazione in containers già esistenti e running. Questo potrebbe essere accettato durante la fase di sviluppo dove si ha bisogno di effettuare il deploy e il debug continuamente; ma per una CD (continuously delivery) pipeline verso ambienti di produzione, l'applicazione dovrebbe far parte di una singola immagine. Ricorda che i *Containers sono immutabili.*
 
 3. Non creare immagini grandi. – Una grande immagina sarà più difficile da distribuire. Assicurati di averne solo i file e le librarie necessarie per eseguire la tua applicazione. Non installare *packages* non necessari *updates* (yum update) che effettuerebbero il downloads di molti files.
 
